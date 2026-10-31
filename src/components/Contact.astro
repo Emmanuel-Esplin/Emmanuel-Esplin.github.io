@@ -1,0 +1,72 @@
+---
+import { profile } from '../data/cv';
+
+const links = [
+  profile.email && { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+  profile.linkedin && { label: 'LinkedIn', value: 'LinkedIn profile', href: profile.linkedin },
+  { label: 'GitHub', value: 'Emmanuel-Esplin', href: profile.github },
+].filter(Boolean) as { label: string; value: string; href: string }[];
+---
+
+<section id="contact">
+  <div class="container">
+    <div class="panel reveal box">
+      <p class="section-label">// contact</p>
+      <h2 class="section-title">Let's build something with data</h2>
+      <p class="open">{profile.openTo}{profile.location && ` Based in ${profile.location}.`}</p>
+      <ul>
+        {
+          links.map((l) => (
+            <li>
+              <span>{l.label}</span>
+              <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+                {l.value}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <footer class="container">
+    <p>© {new Date().getFullYear()} {profile.name} · Built with Astro, hosted free on GitHub Pages</p>
+  </footer>
+</section>
+
+<style>
+  .box {
+    text-align: center;
+    padding: 56px 28px;
+  }
+  .section-title {
+    margin-bottom: 16px;
+  }
+  .open {
+    color: var(--fg-muted);
+    margin: 0 0 32px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 40px;
+    font-family: var(--font-mono);
+  }
+  li span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  footer p {
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    margin: 56px 0 0;
+  }
+</style>

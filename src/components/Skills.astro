@@ -1,0 +1,58 @@
+---
+import { skills } from '../data/cv';
+
+const lanes = [skills.degree, skills.selfTaught, skills.learning];
+---
+
+<section id="skills">
+  <div class="container">
+    <p class="section-label">// skills</p>
+    <h2 class="section-title">Studied, built, and learning</h2>
+    <div class="lanes">
+      {
+        lanes.map((lane, i) => (
+          <article class={`panel reveal lane lane-${i}`}>
+            <p class="lane-label">{lane.label}</p>
+            <div class="chips">
+              {lane.items.map((s) => (
+                <span class="chip">{s}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .lanes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .lane-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin: 0 0 18px;
+    color: var(--accent-2);
+  }
+  .lane-1 .lane-label {
+    color: var(--accent);
+  }
+  .lane-2 .lane-label {
+    color: var(--accent-3);
+  }
+  .lane-2 .chip {
+    border-style: dashed;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-size: 0.85rem;
+    color: var(--fg);
+  }
+</style>

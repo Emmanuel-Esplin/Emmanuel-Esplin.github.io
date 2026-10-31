@@ -1,0 +1,229 @@
+---
+// Plain, single-column CV for recruiters and ATS parsers. Print to PDF with Ctrl/Cmd + P.
+import { profile, education, experience, certifications, skills } from '../data/cv';
+import { projects } from '../data/projects';
+
+const contact = [profile.location, profile.email, profile.linkedin, profile.github].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{profile.name} · CV</title>
+    <meta name="description" content={`CV of ${profile.name}, ${profile.headline}`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="toolbar">
+      <a href="/">← Back to site</a>
+      <button onclick="window.print()">Save as PDF</button>
+    </div>
+
+    <main>
+      <header>
+        <h1>{profile.name}</h1>
+        <p class="headline">{profile.headline}</p>
+        <p class="contact">
+          {contact.map((c, i) => <>{i > 0 && ' | '}{c.startsWith('http') ? <a href={c}>{c.replace(/^https?:\/\//, '')}</a> : c}</>)}
+        </p>
+      </header>
+
+      <section>
+        <h2>Profile</h2>
+        <p>{profile.summary}</p>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="row">
+          <strong>{education.degree}</strong>
+          <span>{education.year}</span>
+        </div>
+        <p class="sub">{education.institution}</p>
+        <p>
+          <em>Relevant modules:</em>
+          {Object.values(education.modules).flat().join(', ')}
+        </p>
+      </section>
+
+      {
+        experience.length > 0 && (
+          <section>
+            <h2>Experience</h2>
+            {experience.map((job) => (
+              <div class="item">
+                <div class="row">
+                  <strong>
+                    {job.role}, {job.org}
+                  </strong>
+                  <span>{job.period}</span>
+                </div>
+                <ul>
+                  {job.points.map((p) => (
+                    <li>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+        )
+      }
+
+      <section>
+        <h2>Projects</h2>
+        {
+          projects.map((p) => (
+            <div class="item">
+              <div class="row">
+                <strong>{p.title}</strong>
+                <span>{p.stack.slice(0, 4).join(' · ')}</span>
+              </div>
+              <ul>
+                {p.highlights.map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <p><strong>Technical:</strong> {skills.selfTaught.items.join(', ')}</p>
+        <p><strong>Business &amp; analysis:</strong> {skills.degree.items.join(', ')}</p>
+        <p><strong>Currently learning:</strong> {skills.learning.items.join(', ')}</p>
+      </section>
+
+      {
+        certifications.length > 0 && (
+          <section>
+            <h2>Certifications</h2>
+            <ul>
+              {certifications.map((c) => (
+                <li>
+                  {c.name}, {c.issuer} ({c.year})
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </main>
+
+    <style is:global>
+      body {
+        margin: 0;
+        background: #f1f5f9;
+        color: #0f172a;
+        font:
+          15px/1.5 'Helvetica Neue',
+          Arial,
+          sans-serif;
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .toolbar a {
+        color: #1d4ed8;
+      }
+      .toolbar button {
+        font: inherit;
+        padding: 8px 16px;
+        border: 0;
+        border-radius: 4px;
+        background: #1d4ed8;
+        color: #fff;
+        cursor: pointer;
+      }
+      main {
+        max-width: 800px;
+        margin: 0 auto 48px;
+        padding: 48px 56px;
+        background: #fff;
+        box-shadow: 0 2px 16px rgba(15, 23, 42, 0.08);
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.9rem;
+      }
+      .headline {
+        margin: 2px 0 6px;
+        color: #1d4ed8;
+        font-weight: 600;
+      }
+      .contact {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #475569;
+      }
+      .contact a {
+        color: inherit;
+      }
+      h2 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #1d4ed8;
+        border-bottom: 1px solid #cbd5e1;
+        padding-bottom: 4px;
+        margin: 22px 0 10px;
+      }
+      p {
+        margin: 4px 0;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .row span,
+      .sub {
+        color: #475569;
+        font-size: 0.85rem;
+      }
+      .item {
+        margin-bottom: 10px;
+        break-inside: avoid;
+      }
+      ul {
+        margin: 4px 0;
+        padding-left: 18px;
+      }
+      @media (max-width: 640px) {
+        main {
+          padding: 24px 16px;
+        }
+        .row {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+      @media print {
+        @page {
+          margin: 14mm;
+        }
+        body {
+          background: #fff;
+          font-size: 10.5pt;
+        }
+        .toolbar {
+          display: none;
+        }
+        main {
+          box-shadow: none;
+          padding: 0;
+          max-width: none;
+          margin: 0;
+        }
+      }
+    </style>
+  </body>
+</html>

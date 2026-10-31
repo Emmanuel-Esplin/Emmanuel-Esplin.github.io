@@ -1,0 +1,92 @@
+---
+import { education, certifications } from '../data/cv';
+---
+
+<section id="education">
+  <div class="container">
+    <p class="section-label">// education</p>
+    <h2 class="section-title">Formal foundation</h2>
+    <article class="panel reveal">
+      <div class="head">
+        <div>
+          <h3>{education.degree}</h3>
+          <p class="inst">{education.institution}</p>
+        </div>
+        {education.year && <span class="chip">Graduated {education.year}</span>}
+      </div>
+      <div class="modules">
+        {
+          Object.entries(education.modules).map(([group, items]) => (
+            <div>
+              <p class="group">{group}</p>
+              <ul>
+                {items.map((m) => (
+                  <li>{m}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </article>
+
+    {
+      certifications.length > 0 && (
+        <div class="certs reveal">
+          <p class="group">Certifications</p>
+          <ul>
+            {certifications.map((c) => (
+              <li>
+                {c.url ? <a href={c.url}>{c.name}</a> : c.name} · {c.issuer}, {c.year}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  .inst {
+    color: var(--accent-2);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    margin: 6px 0 0;
+  }
+  .modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .group {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-3);
+    margin: 0 0 10px;
+  }
+  ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--fg-muted);
+  }
+  li::marker {
+    color: var(--accent-2);
+  }
+  .certs {
+    margin-top: 32px;
+  }
+</style>

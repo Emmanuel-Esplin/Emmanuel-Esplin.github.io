@@ -1,0 +1,95 @@
+---
+import type { ProjectWithStats } from '../data/projects';
+
+interface Props {
+  project: ProjectWithStats;
+}
+
+const { project } = Astro.props;
+const updated = project.updated
+  ? new Date(project.updated).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })
+  : undefined;
+---
+
+<article class="panel reveal card">
+  <p class="meta">
+    <span>{project.category}</span>
+    {updated && <span>updated {updated}</span>}
+  </p>
+  <h3>
+    <a href={project.url} target="_blank" rel="noopener">
+      {project.title} <span aria-hidden="true">↗</span>
+    </a>
+  </h3>
+  <p class="summary">{project.summary}</p>
+  <ul>
+    {project.highlights.map((h) => <li>{h}</li>)}
+  </ul>
+  <div class="stack">
+    {project.stack.map((s) => <span class="chip">{s}</span>)}
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--glow);
+    transform: translateY(-3px);
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-3);
+    margin: 0 0 10px;
+  }
+  .meta span:last-child:not(:first-child) {
+    color: var(--fg-muted);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  h3 a {
+    color: var(--fg);
+  }
+  /* whole card is clickable via the title link */
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  h3 a:hover {
+    color: var(--accent-2);
+  }
+  .summary {
+    color: var(--fg);
+    margin: 10px 0;
+  }
+  ul {
+    margin: 0 0 20px;
+    padding-left: 18px;
+    color: var(--fg-muted);
+    font-size: 0.95rem;
+    flex: 1;
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover {
+      transform: none;
+    }
+  }
+</style>
