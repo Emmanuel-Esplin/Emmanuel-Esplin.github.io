@@ -14,11 +14,12 @@ const contact = [profile.location, profile.email, profile.linkedin, profile.gith
     <title>{profile.name} · CV</title>
     <meta name="description" content={`CV of ${profile.name}, ${profile.headline}`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
   </head>
   <body>
     <div class="toolbar">
       <a href="/">← Back to site</a>
-      <button onclick="window.print()">Save as PDF</button>
+      <button id="print-cv" type="button">Save as PDF</button>
     </div>
 
     <main>
@@ -112,6 +113,11 @@ const contact = [profile.location, profile.email, profile.linkedin, profile.gith
         )
       }
     </main>
+
+    <script>
+      // Inline onclick handlers are blocked by the Content Security Policy.
+      document.getElementById('print-cv')?.addEventListener('click', () => window.print());
+    </script>
 
     <style is:global>
       body {

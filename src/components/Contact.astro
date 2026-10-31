@@ -19,7 +19,7 @@ const links = [
           links.map((l) => (
             <li>
               <span>{l.label}</span>
-              <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+              <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
                 {l.value}
               </a>
             </li>
