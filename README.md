@@ -42,3 +42,19 @@ src/
 Every push to `main` runs `.github/workflows/deploy.yml`, which builds and deploys to GitHub Pages.
 It also rebuilds every Monday so the project stats stay current.
 One-time setup: repo **Settings → Pages → Source: GitHub Actions**.
+
+## Making changes
+
+`main` is protected, so every change goes through a pull request:
+
+```bash
+git switch main && git pull
+git switch -c feat/short-description     # or fix/, docs/, chore/, security/
+# ...edit, then:
+git commit -m "feat: short description"  # Conventional Commits
+git push -u origin HEAD
+gh pr create --fill
+```
+
+The CI workflow must pass (type-check, `npm audit`, build) before merging. Merged branches are deleted automatically.
+See [SECURITY.md](SECURITY.md) for security safeguards and how to report an issue.
