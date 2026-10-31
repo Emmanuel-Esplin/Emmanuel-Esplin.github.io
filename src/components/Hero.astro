@@ -1,0 +1,83 @@
+---
+import { profile } from '../data/cv';
+---
+
+<section class="hero" id="top">
+  <canvas id="flowfield" aria-hidden="true"></canvas>
+  <div class="container hero-content">
+    <p class="section-label">// status: {profile.openTo ? 'available' : 'online'}</p>
+    <h1>{profile.name}</h1>
+    <p class="headline">{profile.headline}</p>
+    <p class="summary">{profile.summary}</p>
+    <div class="ctas">
+      <a href="#projects" class="btn btn-primary">View projects</a>
+      <a href="/cv" class="btn">Download CV</a>
+      <a href={profile.github} class="btn" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { startFlowField } from '../scripts/flowfield';
+  const canvas = document.getElementById('flowfield');
+  if (canvas instanceof HTMLCanvasElement) startFlowField(canvas);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 64px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
+  }
+  canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+  }
+  /* fade the art into the page and keep text readable */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(7, 8, 13, 0.92) 0%, rgba(7, 8, 13, 0.55) 55%, rgba(7, 8, 13, 0.2) 100%),
+      linear-gradient(0deg, var(--bg) 0%, transparent 25%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 80px 0;
+  }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(90deg, var(--fg) 30%, var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .headline {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    color: var(--accent-2);
+    margin: 12px 0 24px;
+  }
+  .summary {
+    max-width: 620px;
+    color: var(--fg-muted);
+    font-size: 1.1rem;
+    margin: 0 0 36px;
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+</style>

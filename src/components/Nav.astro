@@ -1,0 +1,86 @@
+---
+import { experience } from '../data/cv';
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#education', label: 'Education' },
+  ...(experience.length ? [{ href: '#experience', label: 'Experience' }] : []),
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="logo" aria-label="Back to top">EE<span>_</span></a>
+    <nav aria-label="Sections">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <a href="/cv" class="btn cv-btn">CV</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(7, 8, 13, 0.78);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+  }
+  .logo {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--fg);
+    letter-spacing: 0.1em;
+  }
+  .logo span {
+    color: var(--accent-2);
+    animation: blink 1.1s steps(1) infinite;
+  }
+  ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+  }
+  nav a:hover {
+    color: var(--accent-2);
+  }
+  .cv-btn {
+    padding: 8px 16px;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo span {
+      animation: none;
+    }
+  }
+  @media (max-width: 760px) {
+    nav {
+      display: none;
+    }
+  }
+</style>

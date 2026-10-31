@@ -1,0 +1,57 @@
+---
+import { experience } from '../data/cv';
+---
+
+{
+  experience.length > 0 && (
+    <section id="experience">
+      <div class="container">
+        <p class="section-label">// experience</p>
+        <h2 class="section-title">Work experience</h2>
+        <div class="timeline">
+          {experience.map((job) => (
+            <article class="panel reveal">
+              <div class="head">
+                <h3>
+                  {job.role} <span>· {job.org}</span>
+                </h3>
+                <span class="chip">{job.period}</span>
+              </div>
+              <ul>
+                {job.points.map((pt) => (
+                  <li>{pt}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .timeline {
+    display: grid;
+    gap: 20px;
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  h3 span {
+    color: var(--accent-2);
+    font-weight: 400;
+  }
+  ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--fg-muted);
+  }
+</style>
