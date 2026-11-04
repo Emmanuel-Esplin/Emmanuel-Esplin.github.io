@@ -27,8 +27,8 @@ export const profile = {
   linkedin: '',
   github: 'https://github.com/Emmanuel-Esplin',
   summary:
-    'Business Analyst Intern at Fortress Real Estate Investments who started out capturing data by hand and now helps automate the processes behind it. ' +
-    'I gather requirements and lead user acceptance testing on automation work, including the budget process, ' +
+    'Business Analyst Intern at Fortress Real Estate Investments who started out capturing data by hand and now focuses on feature enhancements to the company\'s internal application. ' +
+    'I gather requirements and lead user acceptance testing for current and upcoming features and for automation work, including the budget process, ' +
     'and help automate key Power BI reports so teams spend their time analysing data instead of preparing it. ' +
     'In my own projects I build end-to-end data pipelines, most recently an Airflow, dbt and DuckDB pipeline that takes 11.2M NYC taxi records from raw files to a Metabase dashboard. ' +
     'I believe automation and AI should help people do better work, not replace them.',
@@ -81,18 +81,18 @@ export const experience: Experience[] = [
     org: 'Fortress Real Estate Investments',
     period: '2024 – Present',
     points: [
+      "Focus on feature enhancements to Fortress's internal application: gather requirements from business stakeholders for current and upcoming features, and translate them into technical specifications.",
+      'Lead user acceptance testing (UAT) of these enhancements, validating them against business requirements before release.',
+      'Train and support end users on new features to drive adoption after go-live.',
       'Defined requirements and led UAT for the automation of the budget process, significantly shortening the budget cycle and giving the business time to analyse and validate budgets before sign-off.',
       'Help automate key business reports in Power BI and validate them through UAT, so users spend their time analysing data rather than preparing it, which has surfaced and corrected historical data errors.',
-      'Gather requirements from business stakeholders and translate them into technical specifications for data solutions.',
-      'Lead user acceptance testing (UAT) of new Fortress platform features, validating them against business requirements before release.',
-      'Train and support end users on new platform features to drive adoption after go-live.',
     ],
   },
   {
     role: 'Data Capture Intern',
     org: 'Fortress Real Estate Investments',
     period: '2023 – 2024',
-    points: ['Captured and maintained data on the Fortress platform, keeping records accurate and complete.'],
+    points: ["Captured and maintained data in Fortress's internal application, keeping records accurate and complete."],
   },
 ];
 
@@ -125,6 +125,7 @@ export const skills = {
       'dbt',
       'Great Expectations',
       'Metabase',
+      'FastAPI',
       'Apache Spark / PySpark',
       'Delta Lake',
       'Docker',
