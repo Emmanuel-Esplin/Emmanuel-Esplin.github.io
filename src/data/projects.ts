@@ -6,10 +6,14 @@ const GITHUB_USER = 'Emmanuel-Esplin';
 export interface Project {
   repo: string;
   title: string;
-  category: 'Data Engineering' | 'Data Modelling' | 'Analytics & ML' | 'Statistics';
+  category: 'Data Engineering' | 'Test Automation' | 'Data Modelling' | 'Analytics & ML' | 'Statistics';
   summary: string;
   highlights: string[];
   stack: string[];
+  /** Also list on the printable CV. Keep to the strongest few so it stays within two pages. */
+  onCv?: boolean;
+  /** Shows the project as a full-width flagship card with this screenshot. */
+  image?: { src: string; alt: string; width: number; height: number };
 }
 
 export interface ProjectWithStats extends Project {
@@ -20,16 +24,37 @@ export interface ProjectWithStats extends Project {
 
 export const projects: Project[] = [
   {
-    repo: 'de-cookbook-practice',
-    title: 'Spark Data Engineering Cookbook',
+    repo: 'nyc-taxi-pipeline',
+    title: 'NYC Taxi Data Pipeline',
     category: 'Data Engineering',
-    summary: 'Batch ETL recipes for ingesting, transforming and storing data at scale.',
+    summary: 'End-to-end batch pipeline that turns raw NYC taxi files into a tested star schema and a Metabase dashboard.',
     highlights: [
-      'Ingests CSV, JSON, Parquet and XML; joins, window functions and UDFs',
-      'Delta Lake tables for reliable, versioned storage',
-      'Gradle multi-module build with pytest checks and GitHub Actions CI',
+      'Loads three months of TLC data (11.2M rows) with one command; rerunning a month replaces it with identical rows',
+      'Quarantines every rejected row with its reason and reconciles row counts between stages, so a mismatch fails the run',
+      'Airflow schedules and backfills each month; dbt builds the star schema with 22 data tests; Great Expectations enforces a blocking data contract',
+      'Publishes marts to Postgres for a Metabase dashboard defined in code, all from one docker-compose file with CI on every pull request',
     ],
-    stack: ['PySpark', 'Delta Lake', 'Scala', 'Gradle', 'CI'],
+    stack: ['Airflow', 'dbt', 'DuckDB', 'Great Expectations', 'Postgres', 'Metabase', 'Docker', 'GitHub Actions'],
+    onCv: true,
+    image: {
+      src: '/projects/nyc-taxi-dashboard.png',
+      alt: 'Metabase dashboard showing 8.65 million clean trips, revenue, daily trips and average trips by pickup hour',
+      width: 1600,
+      height: 716,
+    },
+  },
+  {
+    repo: 'portfolio-api-tests',
+    title: 'Playwright API Test Suite',
+    category: 'Test Automation',
+    summary: 'Automated API tests for this site and the GitHub REST API that feeds its project list.',
+    highlights: [
+      "Checks the site's routing and security headers, and validates GitHub responses against zod schemas",
+      'Bounded self-heal retries transient failures, records every heal and never hides a failed assertion',
+      'Runs in CI on every pull request, plus a nightly strict run that fails if any test needed to heal',
+    ],
+    stack: ['Playwright', 'TypeScript', 'zod', 'GitHub Actions'],
+    onCv: true,
   },
   {
     repo: 'SQL-Projects',
@@ -42,6 +67,20 @@ export const projects: Project[] = [
       'Bulk CSV import and PostgreSQL COPY workflows',
     ],
     stack: ['MySQL', 'PostgreSQL', 'Data modelling'],
+    onCv: true,
+  },
+  {
+    repo: 'de-cookbook-practice',
+    title: 'Spark Data Engineering Practice',
+    category: 'Data Engineering',
+    summary: "Batch ETL recipes worked through from Packt's Data Engineering with Databricks Cookbook, rebuilt as a tested project.",
+    highlights: [
+      'Ingests CSV, JSON, Parquet and XML; joins, window functions and UDFs',
+      'Delta Lake tables for reliable, versioned storage',
+      'Gradle multi-module build with pytest checks and GitHub Actions CI',
+    ],
+    stack: ['PySpark', 'Delta Lake', 'Scala', 'Gradle', 'CI'],
+    onCv: true,
   },
   {
     repo: 'Python_Projects',
@@ -56,6 +95,18 @@ export const projects: Project[] = [
     stack: ['pandas', 'scikit-learn', 'XGBoost', 'Matplotlib'],
   },
   {
+    repo: 'Data_Science_Fundamentals',
+    title: 'Data Science Fundamentals',
+    category: 'Analytics & ML',
+    summary: 'Reproducible notebooks covering NumPy, pandas and introductory machine learning.',
+    highlights: [
+      'HR attrition analysis in pandas: filtering, recoding and groupby comparisons',
+      'k-NN, logistic regression, random forest and linear regression, evaluated against baselines',
+      'CI runs every notebook and audits dependencies',
+    ],
+    stack: ['Python', 'NumPy', 'pandas', 'scikit-learn', 'Jupyter'],
+  },
+  {
     repo: 'R_Projects',
     title: 'Statistical Analysis in R',
     category: 'Statistics',
@@ -65,14 +116,6 @@ export const projects: Project[] = [
       'Decision trees with entropy and information gain worked out by hand',
     ],
     stack: ['R', 'rpart', 'ggplot2'],
-  },
-  {
-    repo: 'Data-engineering',
-    title: 'Dockerised ETL Workspace',
-    category: 'Data Engineering',
-    summary: 'Reproducible, containerised environment for building ETL pipelines.',
-    highlights: ['Databricks-style notebooks running locally in Docker containers'],
-    stack: ['Python', 'Spark', 'Docker', 'Jupyter'],
   },
 ];
 
