@@ -3,6 +3,7 @@
 import { profile, education, experience, certifications, skills } from '../data/cv';
 import { projects } from '../data/projects';
 
+const cvProjects = projects.filter((p) => p.onCv);
 const contact = [profile.location, profile.email, profile.linkedin, profile.github].filter(Boolean);
 ---
 
@@ -44,7 +45,7 @@ const contact = [profile.location, profile.email, profile.linkedin, profile.gith
         </div>
         <p class="sub">{education.institution}</p>
         <p>
-          <em>Relevant modules:</em>
+          <em>Relevant modules:</em>{' '}
           {Object.values(education.modules).flat().join(', ')}
         </p>
       </section>
@@ -75,10 +76,10 @@ const contact = [profile.location, profile.email, profile.linkedin, profile.gith
       <section>
         <h2>Projects</h2>
         {
-          projects.map((p) => (
+          cvProjects.map((p) => (
             <div class="item">
               <div class="row">
-                <strong>{p.title}</strong>
+                <strong><a href={`${profile.github}/${p.repo}`}>{p.title}</a></strong>
                 <span>{p.stack.slice(0, 4).join(' · ')}</span>
               </div>
               <ul>
@@ -182,6 +183,7 @@ const contact = [profile.location, profile.email, profile.linkedin, profile.gith
         border-bottom: 1px solid #cbd5e1;
         padding-bottom: 4px;
         margin: 22px 0 10px;
+        break-after: avoid;
       }
       p {
         margin: 4px 0;
@@ -199,6 +201,9 @@ const contact = [profile.location, profile.email, profile.linkedin, profile.gith
       .item {
         margin-bottom: 10px;
         break-inside: avoid;
+      }
+      .item strong a {
+        color: inherit;
       }
       ul {
         margin: 4px 0;
