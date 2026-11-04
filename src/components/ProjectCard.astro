@@ -11,22 +11,35 @@ const updated = project.updated
   : undefined;
 ---
 
-<article class="panel reveal card">
-  <p class="meta">
-    <span>{project.category}</span>
-    {updated && <span>updated {updated}</span>}
-  </p>
-  <h3>
-    <a href={project.url} target="_blank" rel="noopener noreferrer">
-      {project.title} <span aria-hidden="true">↗</span>
-    </a>
-  </h3>
-  <p class="summary">{project.summary}</p>
-  <ul>
-    {project.highlights.map((h) => <li>{h}</li>)}
-  </ul>
-  <div class="stack">
-    {project.stack.map((s) => <span class="chip">{s}</span>)}
+<article class:list={['panel', 'reveal', 'card', { flagship: project.image }]}>
+  {
+    project.image && (
+      <img
+        src={project.image.src}
+        alt={project.image.alt}
+        width={project.image.width}
+        height={project.image.height}
+        loading="lazy"
+      />
+    )
+  }
+  <div class="body">
+    <p class="meta">
+      <span>{project.category}</span>
+      {updated && <span>updated {updated}</span>}
+    </p>
+    <h3>
+      <a href={project.url} target="_blank" rel="noopener noreferrer">
+        {project.title} <span aria-hidden="true">↗</span>
+      </a>
+    </h3>
+    <p class="summary">{project.summary}</p>
+    <ul>
+      {project.highlights.map((h) => <li>{h}</li>)}
+    </ul>
+    <div class="stack">
+      {project.stack.map((s) => <span class="chip">{s}</span>)}
+    </div>
   </div>
 </article>
 
@@ -34,6 +47,34 @@ const updated = project.updated
   .card {
     display: flex;
     flex-direction: column;
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+  .flagship {
+    grid-column: 1 / -1;
+    gap: 24px;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid var(--border-strong);
+  }
+  @media (min-width: 900px) {
+    .flagship {
+      flex-direction: row;
+      align-items: center;
+    }
+    .flagship img,
+    .flagship .body {
+      flex: 1 1 0;
+      min-width: 0;
+    }
   }
   .card:hover {
     border-color: var(--border-strong);

@@ -18,7 +18,7 @@ export interface Certification {
 
 export const profile = {
   name: 'Emmanuel Esplin',
-  headline: 'Business Analyst · Data & Automation',
+  headline: 'Business Analyst · Data Engineering & Automation',
   // TODO: city, country (e.g. 'Johannesburg, South Africa')
   location: '',
   // TODO: professional email address
@@ -30,7 +30,7 @@ export const profile = {
     'Business Analyst Intern at Fortress Real Estate Investments who started out capturing data by hand and now helps automate the processes behind it. ' +
     'I gather requirements and lead user acceptance testing on automation work, including the budget process, ' +
     'and help automate key Power BI reports so teams spend their time analysing data instead of preparing it. ' +
-    'In my own projects I build ETL pipelines in PySpark and Delta Lake and automate repetitive work in Python. ' +
+    'In my own projects I build end-to-end data pipelines, most recently an Airflow, dbt and DuckDB pipeline that takes 11.2M NYC taxi records from raw files to a Metabase dashboard. ' +
     'I believe automation and AI should help people do better work, not replace them.',
   openTo: 'Open to junior data engineering, data analyst and BI roles.',
 };
@@ -120,12 +120,17 @@ export const skills = {
     label: 'Personal projects · see Projects',
     items: [
       'Python (pandas, scikit-learn, XGBoost)',
+      'SQL (MySQL, PostgreSQL, DuckDB)',
+      'Airflow',
+      'dbt',
+      'Great Expectations',
+      'Metabase',
       'Apache Spark / PySpark',
       'Delta Lake',
-      'SQL (MySQL, PostgreSQL)',
-      'R',
       'Docker',
       'GitHub Actions CI',
+      'Playwright API testing (TypeScript)',
+      'R',
     ],
   },
   learning: {
