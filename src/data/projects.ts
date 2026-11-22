@@ -12,6 +12,8 @@ export interface Project {
   stack: string[];
   /** Also list on the printable CV. Keep to the strongest few so it stays within two pages. */
   onCv?: boolean;
+  /** Live demo or dashboard, shown as a link on the card. */
+  demo?: string;
   /** Shows the project as a full-width flagship card with this screenshot. */
   image?: { src: string; alt: string; width: number; height: number };
 }
@@ -23,6 +25,69 @@ export interface ProjectWithStats extends Project {
 }
 
 export const projects: Project[] = [
+  {
+    repo: 'sa-property-lakehouse',
+    title: 'SA Property Lakehouse',
+    category: 'Data Engineering',
+    summary:
+      "Benchmarks how a South African landlord's retail tenants are trading, using Stats SA retail sales and SARB inflation and interest rates.",
+    highlights: [
+      'Splits retail sales growth by retailer type into volume and price and tests each category against CPI, so a landlord can compare its own tenants with the market',
+      "Reconciled to the source: all 101 growth rates match Stats SA's August 2026 release, and the Athena marts match the local marts on all 1,907 rows",
+      'One parser and one set of dbt models run locally on DuckDB and on AWS (Lambda, Spark on Glue writing Iceberg, dbt on Athena), orchestrated by Step Functions',
+      'AWS infrastructure in Terraform with budget guardrails; findings published as an interactive dashboard on GitHub Pages',
+    ],
+    stack: ['Python', 'dbt', 'DuckDB', 'PySpark', 'AWS Glue', 'Athena', 'Iceberg', 'Step Functions', 'Terraform'],
+    onCv: true,
+    demo: 'https://emmanuel-esplin.github.io/sa-property-lakehouse/',
+    image: {
+      src: '/projects/sa-property-dashboard.png',
+      alt: 'Dashboard of South African retail tenant trading: 4.3% sales growth against 3.8% CPI, with sales growth by retailer type compared with inflation',
+      width: 984,
+      height: 790,
+    },
+  },
+  {
+    repo: 'f1-race-analytics',
+    title: 'F1 Race Analytics',
+    category: 'Data Engineering',
+    summary: 'Formula 1 lakehouse from 2023 onward: race winners, lap leaders, crashes, Safety Car time lost and penalties.',
+    highlights: [
+      'Ingests the Jolpica and OpenF1 APIs into raw JSON with retries, then typed Parquet and dbt marts for each question',
+      'Custom dbt tests reconcile results against a known race and check there is exactly one leader per lap',
+      'Deployed on AWS with Terraform: Lambda container on a schedule, Step Functions, and dbt on Athena with Iceberg; least-privilege IAM and IaC scanning',
+      'Streamlit dashboard of standings, crashes, minutes lost, laps led and penalties',
+    ],
+    stack: ['Python', 'dbt', 'DuckDB', 'Athena', 'Lambda', 'Step Functions', 'Terraform', 'Streamlit'],
+    onCv: true,
+  },
+  {
+    repo: 'ai-pulse',
+    title: 'AI Pulse: AI Trends Lakehouse',
+    category: 'Data Engineering',
+    summary:
+      'Follows AI technologies week by week across Hacker News, Hugging Face and arXiv in one bronze, silver and gold lakehouse. In progress (phase 3 of 7).',
+    highlights: [
+      'One data model across three sources: a taxonomy of 68 technologies and their aliases links posts, models and papers to the same technology',
+      'Uses Claude as a data source: batched API calls with JSON-schema outputs extract technology mentions and sentiment, and write plain-English paper digests',
+      'Keeps LLM cost under control: answers are cached in bronze so nothing is sent twice, a dry run estimates cost first, and a mart reports actual spend',
+      'Scores the LLM extraction against the rule-based baseline and hand-labelled data',
+    ],
+    stack: ['Python', 'dbt', 'DuckDB', 'Claude API', 'Amazon Bedrock', 'Parquet'],
+    onCv: true,
+  },
+  {
+    repo: 'ipl-cricket-analytics',
+    title: 'IPL Cricket Analytics',
+    category: 'Data Engineering',
+    summary: 'Ball-by-ball lakehouse over every IPL match since 2008: team results, strike rates, leaderboards and batter-v-bowler matchups.',
+    highlights: [
+      'Incremental ingestion writes only new or revised matches; silver holds five typed tables, including 295k deliveries',
+      "Scoring rules are tested against published records: Kohli's 973 runs in 2016, Bravo's 32 wickets in 2013 and every final from 2008 to 2026",
+      'Runs locally on DuckDB and on AWS via Terraform: Lambda, Glue, Athena capped at 1 GB per query, and a daily Step Functions run with failure alerts',
+    ],
+    stack: ['Python', 'dbt', 'DuckDB', 'Athena', 'Lambda', 'Terraform', 'Streamlit'],
+  },
   {
     repo: 'nyc-taxi-pipeline',
     title: 'NYC Taxi Data Pipeline',
@@ -54,7 +119,6 @@ export const projects: Project[] = [
       'Runs in CI on every pull request, plus a nightly strict run that fails if any test needed to heal',
     ],
     stack: ['Playwright', 'TypeScript', 'zod', 'GitHub Actions'],
-    onCv: true,
   },
   {
     repo: 'SQL-Projects',
@@ -68,7 +132,6 @@ export const projects: Project[] = [
       'PostgreSQL exercises on data types and COPY import and export',
     ],
     stack: ['MySQL', 'FastAPI', 'PostgreSQL', 'Data modelling'],
-    onCv: true,
   },
   {
     repo: 'de-cookbook-practice',
@@ -81,7 +144,6 @@ export const projects: Project[] = [
       'Gradle multi-module build with pytest checks and GitHub Actions CI',
     ],
     stack: ['PySpark', 'Delta Lake', 'Gradle', 'pytest', 'CI'],
-    onCv: true,
   },
   {
     repo: 'Python_Projects',

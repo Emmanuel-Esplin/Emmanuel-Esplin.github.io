@@ -34,6 +34,13 @@ const updated = project.updated
       </a>
     </h3>
     <p class="summary">{project.summary}</p>
+    {
+      project.demo && (
+        <a class="demo" href={project.demo} target="_blank" rel="noopener noreferrer">
+          Live dashboard ↗
+        </a>
+      )
+    }
     <ul>
       {project.highlights.map((h) => <li>{h}</li>)}
     </ul>
@@ -115,6 +122,15 @@ const updated = project.updated
   .summary {
     color: var(--fg);
     margin: 10px 0;
+  }
+  /* sits above the title link's full-card overlay so it stays clickable */
+  .demo {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin: 0 0 12px;
   }
   ul {
     margin: 0 0 20px;
