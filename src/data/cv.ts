@@ -30,7 +30,8 @@ export const profile = {
     'Business Analyst Intern at Fortress Real Estate Investments who started out capturing data by hand and now focuses on feature enhancements to the company\'s internal application. ' +
     'I gather requirements and lead user acceptance testing for current and upcoming features and for automation work, including the budget process, ' +
     'and help automate key Power BI reports so teams spend their time analysing data instead of preparing it. ' +
-    'In my own projects I build end-to-end data pipelines, most recently an Airflow, dbt and DuckDB pipeline that takes 11.2M NYC taxi records from raw files to a Metabase dashboard. ' +
+    'In my own projects I build data pipelines from raw source to dashboard, locally on DuckDB and on AWS with Terraform. ' +
+    "The one closest to my work is a South African property lakehouse that benchmarks retail tenants' trading against national sales and inflation, reconciled to Stats SA's published figures. " +
     'I believe automation and AI should help people do better work, not replace them.',
   openTo: 'Open to junior data engineering, data analyst and BI roles.',
 };
@@ -120,14 +121,19 @@ export const skills = {
     label: 'Personal projects · see Projects',
     items: [
       'Python (pandas, scikit-learn, XGBoost)',
-      'SQL (MySQL, PostgreSQL, DuckDB)',
-      'Airflow',
+      'SQL (DuckDB, PostgreSQL, MySQL)',
       'dbt',
+      'AWS (S3, Lambda, Glue, Athena, Step Functions)',
+      'Terraform',
+      'Apache Spark / PySpark',
+      'Apache Iceberg',
+      'Delta Lake',
+      'Airflow',
       'Great Expectations',
+      'Claude API (LLM data enrichment)',
+      'Streamlit',
       'Metabase',
       'FastAPI',
-      'Apache Spark / PySpark',
-      'Delta Lake',
       'Docker',
       'GitHub Actions CI',
       'Playwright API testing (TypeScript)',
@@ -136,6 +142,6 @@ export const skills = {
   },
   learning: {
     label: 'Learning now',
-    items: ['AWS cloud services', 'Databricks'],
+    items: ['Databricks'],
   },
 };
